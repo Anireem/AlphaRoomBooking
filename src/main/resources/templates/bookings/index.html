@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="blocks/head :: head"></head>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container py-3">
+
+    <h2>Брони</h2>
+
+    <body>
+
+    <br>
+
+    <div class="col-sm-1"><a class="btn btn-primary btn-sm" href="/bookings/new" role="button">Создать</a></div>
+
+    <br>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm table-hover">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Комната</th>
+                <th>Состояние</th>
+                <th>Старт</th>
+                <th>Финиш</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="booking : ${bookings}">
+                <tr>
+                    <td class="align-middle" th:text="${booking.id}"></td>
+                    <td class="align-middle" th:text="${booking.room.name}"></td>
+                    <td class="align-middle" th:text="${booking.status}"></td>
+                    <td class="align-middle" th:text="${booking.start}"></td>
+                    <td class="align-middle col-md-2" th:text="${booking.finish}"></td>
+                    <td class="align-middle col-md-1">
+                        <a class="btn btn-link btn-sm" role="button" th:href="@{/bookings/{id}(id=${booking.id})}"
+                           th:text="Редактировать"></a>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+    </body>
+
+</div>
+
+</html>

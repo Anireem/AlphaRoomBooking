@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="blocks/head :: head"></head>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container py-3">
+
+    <h2>Пользователь</h2>
+
+    <body>
+
+    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+
+        <label class="form-label" for="name">Имя</label>
+        <input class="form-control" type="text" th:field="*{name}" id="name" required>
+        <br>
+
+        <label class="form-label" for="role">Роль</label>
+        <select class="form-select" th:field="*{role}" id="role">
+            <option th:each="role : ${T(com.example.alpharoombooking.models.Role).values()}"
+                    th:value="${role}" th:text="${role}"></option>
+        </select>
+        <br>
+
+        <input class="btn btn-primary" type="submit" value="Сохранить"/>
+        <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button" th:onclick="'removeUser(\'' + ${id} +'\')'">Удалить</button>
+
+    </form>
+
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+    </body>
+
+</div>
+
+</html>

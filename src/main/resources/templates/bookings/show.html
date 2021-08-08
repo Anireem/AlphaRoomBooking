@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="blocks/head :: head"></head>
+<header th:insert="blocks/header :: header"></header>
+
+<div class="container py-3">
+
+    <h2>Бронь</h2>
+
+    <body>
+
+    <form th:method="POST" th:action="@{/bookings}" th:object="${booking}">
+
+        <label class="form-label" for="id">Id</label>
+        <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
+        <br>
+
+        <label for="roomId">Комната</label>
+        <select class="form-select" th:field="*{room}" id="roomId" required>
+            <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
+        </select><br>
+
+        <label class="form-label" for="status">Состояние</label>
+        <select class="form-select" th:field="*{status}" id="status">
+            <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}"
+            th:value="${status}" th:text="${status}"></option>
+        </select>
+        <br>
+
+        <label class="form-label" for="start">Старт</label>
+        <input class="form-control" type="datetime-local" placeholder="2021-08-05T22:48" th:field="*{start}" id="start" required>
+        <br>
+
+        <label class="form-label" for="finish">Финиш</label>
+        <input class="form-control" type="datetime-local" placeholder="2021-08-05T22:48" th:field="*{finish}" id="finish" required>
+        <br>
+
+        <input class="btn btn-primary" type="submit" value="Сохранить"/>
+        <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button" th:onclick="'removeBooking(\'' + ${id} +'\')'">Удалить</button>
+
+    </form>
+
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+    </body>
+
+</div>
+
+</html>
