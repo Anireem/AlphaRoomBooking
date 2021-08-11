@@ -24,8 +24,7 @@
                 <th>Количество кресел</th>
                 <th>Проектор</th>
                 <th>Доска</th>
-                <th>Брони</th>
-                <th>Следующая бронь</th>
+                <th>Самое ранее забронированное время</th>
                 <th></th>
             </tr>
             </thead>
@@ -37,8 +36,8 @@
                     <td class="align-middle" th:text="${room.numberOfSeats}"></td>
                     <td class="align-middle" th:text="${room.projector}"></td>
                     <td class="align-middle" th:text="${room.board}"></td>
-                    <td class="align-middle" th:text="${room.bookings}"></td>
-                    <td class="align-middle" th:text="${room.getNextBooking()}"></td>
+                    <td th:unless="${room.getNextBooking() == null}" class="align-middle" th:text="${room.getNextBooking()}"></td>
+                    <td th:if="${room.getNextBooking() == null}" class="align-middle">Аудитория свободна</td>
                     <td class="align-middle col-md-1">
                         <a class="btn btn-link btn-sm" role="button" th:href="@{/rooms/{id}(id=${room.getId()})}"
                            th:text="Редактировать"></a>

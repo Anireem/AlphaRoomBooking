@@ -12,6 +12,10 @@
 
     <form th:method="POST" th:action="@{/rooms}" th:object="${room}">
 
+        <label class="form-label" for="id">Id</label>
+        <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
+        <br>
+
         <label class="form-label" for="name">Имя</label>
         <input class="form-control" type="text" th:field="*{name}" id="name" required>
         <br>

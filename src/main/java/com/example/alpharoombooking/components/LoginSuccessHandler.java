@@ -22,11 +22,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         User user = userRepository.findByUsername(authentication.getName());
         String redirectURL = request.getContextPath();
-        if (user.hasRole("EMPLOYEE"))
+        if (user.hasRole("ADMIN"))
+            redirectURL = "/users";
+        else if (user.hasRole("EMPLOYEE"))
             redirectURL = "/rooms";
         else if (user.hasRole("OFFICE_MANAGER"))
-            redirectURL = "/users";
-        else
             redirectURL = "/users";
 
         response.sendRedirect(redirectURL);

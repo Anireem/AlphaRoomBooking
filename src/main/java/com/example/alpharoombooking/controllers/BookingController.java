@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/bookings")
 public class BookingController {
@@ -42,8 +44,16 @@ public class BookingController {
 
     // Сохранение
     @PostMapping()
-    public String create(@ModelAttribute("booking") Booking booking) {
-        bookingRepository.save(booking);
+    public String create(@ModelAttribute("booking") Booking booking) throws Exception {
+        if (booking.getStart().isAfter(booking.getFinish()))
+            throw new Exception("Финиш не может быть раньше старта");
+
+        List<Booking> overlappingBookings = bookingRepository.getOverlappingBookings(booking);
+        if (overlappingBookings.size() > 0)
+            throw new Exception("Пересекаются даты со следующей бронью, id " + overlappingBookings.get(0).getId());
+        else
+            bookingRepository.save(booking);
+
         return "redirect:/bookings";
     }
 

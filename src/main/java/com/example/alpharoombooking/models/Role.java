@@ -1,9 +1,9 @@
 package com.example.alpharoombooking.models;
 
 public enum Role {
+    ADMIN("Админ"),
     EMPLOYEE("Сотрудник"),
-    OFFICE_MANAGER("Офис-менеджер"),
-    ADMIN("Админ");
+    OFFICE_MANAGER("Офис-менеджер");
 
     private String translation;
 
