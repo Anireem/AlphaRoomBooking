@@ -1,6 +1,5 @@
 package com.example.alpharoombooking.controllers;
 
-import com.example.alpharoombooking.models.Role;
 import com.example.alpharoombooking.models.Booking;
 import com.example.alpharoombooking.repositories.BookingRepository;
 import com.example.alpharoombooking.repositories.RoomRepository;

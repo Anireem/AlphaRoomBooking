@@ -16,7 +16,7 @@
       <a class="me-3 py-2 text-dark text-decoration-none" href="/bookings">Брони комнат</a>
       <a class="me-3 py-2 text-dark text-decoration-none" href="/users">Пользователи</a>
       <a class="me-3 py-2 text-dark text-decoration-none" th:if="${#httpServletRequest.remoteUser == null}" href="/login">Login</a>
-      <a class="me-3 py-2 text-dark text-decoration-none" th:if="${#httpServletRequest.remoteUser != null}" th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</a>
+      <a class="me-3 py-2 text-dark text-decoration-none" th:if="${#httpServletRequest.remoteUser != null}" th:inline="text">Пользователь: [[${#httpServletRequest.remoteUser}]]</a>
     </nav>
 
     <form th:if="${#httpServletRequest.remoteUser != null}" th:action="@{/logout}" method="post">

@@ -24,7 +24,7 @@
         <label class="form-label" for="status">Состояние</label>
         <select class="form-select" th:field="*{status}" id="status">
             <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}"
-            th:value="${status}" th:text="${status}"></option>
+            th:value="${status.name()}" th:text="${status}"></option>
         </select>
         <br>
 

@@ -21,6 +21,8 @@
             <tr>
                 <th>Id</th>
                 <th>Имя</th>
+                <th>Пароль</th>
+                <th>Активный</th>
                 <th>Роль</th>
                 <th></th>
             </tr>
@@ -29,8 +31,11 @@
             <div th:each="user : ${users}">
                 <tr>
                     <td class="align-middle" th:text="${user.id}"></td>
-                    <td class="align-middle" th:text="${user.name}"></td>
-                    <td class="align-middle" th:text="${user.role}"></td>
+                    <td class="align-middle" th:text="${user.username}"></td>
+                    <td class="align-middle" th:text="${user.password}"></td>
+                    <td class="align-middle" th:text="${user.active}"></td>
+
+                    <td class="align-middle" th:text="${user.roles}"></td>
                     <td class="align-middle col-md-1">
                         <a class="btn btn-link btn-sm" role="button" th:href="@{/users/{id}(id=${user.getId()})}"
                            th:text="Редактировать"></a>

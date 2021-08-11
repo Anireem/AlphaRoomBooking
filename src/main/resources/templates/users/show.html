@@ -12,15 +12,35 @@
 
     <form th:method="POST" th:action="@{/users}" th:object="${user}">
 
-        <label class="form-label" for="name">Имя</label>
-        <input class="form-control" type="text" th:field="*{name}" id="name" required>
+        <label class="form-label" for="id">Id</label>
+        <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
         <br>
 
-        <label class="form-label" for="role">Роль</label>
-        <select class="form-select" th:field="*{role}" id="role">
-            <option th:each="role : ${T(com.example.alpharoombooking.models.Role).values()}"
-                    th:value="${role}" th:text="${role}"></option>
+        <label class="form-label" for="username">Имя</label>
+        <input class="form-control" type="text" th:field="*{username}" id="username" required>
+        <br>
+
+        <label class="form-label" for="password">Пароль</label>
+        <input class="form-control" type="text" th:field="*{password}" id="password" required>
+        <br>
+
+        <label class="form-label" for="roles">Роли</label>
+        <select class="form-select" th:field="*{roles}" multiple="multiple" id="roles" required>
+            <th:block th:each="role : ${T(com.example.alpharoombooking.models.Role).values()}">
+                <option th:text="${role.translation}" th:value="${role.name()}"/>
+            </th:block>
         </select>
+        <br>
+
+        <label class="form-label" for="status">Состояние</label>
+        <select class="form-select" id="status">
+            <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}"
+                    th:value="${status}" th:text="${status}"></option>
+        </select>
+        <br>
+
+        <label class="form-label" for="active">Активен</label>
+        <input type="checkbox" th:field="*{active}" id="active" onclick="return false;">
         <br>
 
         <input class="btn btn-primary" type="submit" value="Сохранить"/>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="blocks/head :: head"></head>
+
+<div class="container py-3">
+
+  <header th:insert="blocks/header :: header"></header>
+
+  <h2>Registration</h2>
+
+  <body>
+
+  <div th:if="${param.error}">
+    Invalid username and password.
+  </div>
+  <div th:if="${param.logout}">
+    You have been logged out.
+  </div>
+  <form th:action="@{/registration}" method="post">
+    <div><label> User Name : <input class="form-control" type="text" name="username"/> </label></div>
+    <div><label> Password: <input class="form-control" type="password" name="password"/> </label></div>
+    <br>
+    <div><input class="btn btn-primary" type="submit" value="Register"/></div>
+  </form>
+  </body>
+</div>
+</html>

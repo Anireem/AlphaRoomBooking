@@ -25,6 +25,7 @@
                 <th>Проектор</th>
                 <th>Доска</th>
                 <th>Брони</th>
+                <th>Следующая бронь</th>
                 <th></th>
             </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td class="align-middle" th:text="${room.projector}"></td>
                     <td class="align-middle" th:text="${room.board}"></td>
                     <td class="align-middle" th:text="${room.bookings}"></td>
+                    <td class="align-middle" th:text="${room.getNextBooking()}"></td>
                     <td class="align-middle col-md-1">
                         <a class="btn btn-link btn-sm" role="button" th:href="@{/rooms/{id}(id=${room.getId()})}"
                            th:text="Редактировать"></a>

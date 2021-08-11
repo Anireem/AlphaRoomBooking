@@ -1,6 +1,5 @@
 package com.example.alpharoombooking.controllers;
 
-import com.example.alpharoombooking.models.Role;
 import com.example.alpharoombooking.models.User;
 import com.example.alpharoombooking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

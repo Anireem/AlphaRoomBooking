@@ -1,7 +1,9 @@
 package com.example.alpharoombooking.models;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="rooms")
@@ -28,6 +30,15 @@ public class Room {
         this.projector = projector;
         this.board = board;
         this.bookings = bookings;
+    }
+
+    public Booking getNextBooking() {
+        List<Booking> bookings = this.bookings.stream().filter(x -> x.getStart().isAfter(LocalDateTime.now())).collect(Collectors.toList());
+        bookings.sort((o1, o2) -> o1.getStart().compareTo(o2.getStart()));
+        if (bookings.size() > 0)
+            return bookings.get(0);
+        else
+            return null;
     }
 
     public Long getId() {
