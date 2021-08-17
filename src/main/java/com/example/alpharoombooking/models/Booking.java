@@ -8,9 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="bookings")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +18,6 @@ public class Booking {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "room_id", nullable = false)
-//    @JsonIgnore
     private Room room;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
@@ -72,7 +69,6 @@ public class Booking {
         this.status = status;
     }
 
-//    @JsonBackReference
     public Room getRoom() {
         return room;
     }

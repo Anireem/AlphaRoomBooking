@@ -10,7 +10,7 @@
 
     <body>
 
-    <form th:method="POST" th:action="@{/bookings}" th:object="${booking}">
+    <form class="col-lg-5" th:method="POST" th:action="@{/bookings}" th:object="${booking}">
 
         <label class="form-label" for="id">Id</label>
         <input class="form-control" type="text" th:field="*{id}" id="id" readonly>

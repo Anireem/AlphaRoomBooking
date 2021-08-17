@@ -10,7 +10,7 @@
 
     <body>
 
-    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+    <form class="col-lg-5" name="user" th:method="POST" th:action="@{/users}" th:object="${user}">
 
         <label class="form-label" for="id">Id</label>
         <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
@@ -45,6 +45,7 @@
 
         <input class="btn btn-primary" type="submit" value="Сохранить"/>
         <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button" th:onclick="'removeUser(\'' + ${id} +'\')'">Удалить</button>
+        <button class="btn btn-outline-secondary" type="button" th:onclick="'saveUser()'">Сохр</button>
 
     </form>
 

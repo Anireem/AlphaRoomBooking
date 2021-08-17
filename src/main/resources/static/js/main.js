@@ -16,6 +16,28 @@ async function doRequest(url, method = 'GET', data = null) {
     }
 }
 
+
+function getFormData(form){
+
+    var unindexed_array = form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
+
+function getInputValue(id) {
+    var els = document.forms["user"].getElementsByTagName("input")
+    for (let i = 0; i < els.length; i++) {
+        if (els[i].id == id) {
+            return els[i].value
+        }
+    }
+}
+
 async function removeBooking(id) {
     bookingsURL = 'http://' + window.location.host + '/bookings/';
     bookingURL = bookingsURL + id + '/delete';
@@ -38,4 +60,12 @@ async function removeUser(id) {
     promice = doRequest(userURL, 'POST')
     let requestResult = await promice;
     window.location.replace(usersURL)
+}
+
+async function saveUser() {
+    var id = getInputValue("id")
+    var username = getInputValue("username")
+    var password = getInputValue("password")
+    var roles = getInputValue("roles")
+    console.log("test")
 }

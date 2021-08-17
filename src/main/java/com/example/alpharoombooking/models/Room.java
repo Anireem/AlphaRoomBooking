@@ -9,9 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name="rooms")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,7 +84,6 @@ public class Room {
         this.board = board;
     }
 
-//    @JsonManagedReference
     public List<Booking> getBookings() {
         return bookings;
     }
