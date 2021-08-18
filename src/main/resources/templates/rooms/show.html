@@ -10,13 +10,13 @@
 
     <body>
 
-    <form class="col-lg-5" th:method="POST" th:action="@{/rooms}" th:object="${room}">
+    <form class="col-lg-5" name="form" th:method="POST" th:object="${room}">
 
         <label class="form-label" for="id">Id</label>
         <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
         <br>
 
-        <label class="form-label" for="name">Имя</label>
+        <label class="form-label" for="name">Название</label>
         <input class="form-control" type="text" th:field="*{name}" id="name" required>
         <br>
 
@@ -35,11 +35,9 @@
         </div>
         <br>
 
-        <input class="btn btn-primary" type="submit" value="Сохранить"/>
-        <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button"
-                th:onclick="'removeRoom(\'' + ${id} +'\')'">Удалить
-        </button>
-
+        <button class="btn btn-primary" type="button" th:onclick="'saveRoom()'">Сохранить</button>
+        <button class="btn btn-secondary" type="button" th:onclick="'openBooking(\'' + ${id} +'\')'">Забронировать</button>
+        <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button" th:onclick="'removeRoom(\'' + ${id} +'\')'">Удалить</button>
     </form>
 
     <br>

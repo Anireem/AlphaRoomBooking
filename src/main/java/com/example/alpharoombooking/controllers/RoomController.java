@@ -34,12 +34,12 @@ public class RoomController {
         return "rooms/show";
     }
 
-    // Сохранение
-    @PostMapping()
-    public String create(@ModelAttribute("room") Room room) {
-        roomRepository.save(room);
-        return "redirect:/rooms";
-    }
+//    // Сохранение
+//    @PostMapping()
+//    public String create(@ModelAttribute("room") Room room) {
+//        roomRepository.save(room);
+//        return "redirect:/rooms";
+//    }
 
     // Удаление
     @PostMapping("{id}/delete")

@@ -38,11 +38,22 @@ public class BookingRestController {
 
     // Save
     @PostMapping("bookings")
-    public Booking saveBooking(@RequestBody Booking booking) {
+    public Booking saveBooking(@RequestBody Booking booking) throws Exception {
+//        Long roomId = booking.getRoom().getId();
+//        Room room  = roomRepository.findById(roomId).get();
+//        booking.setRoom(room);
         Long roomId = booking.getRoom().getId();
         Room room  = roomRepository.findById(roomId).get();
         booking.setRoom(room);
-        return bookingRepository.save(booking);
+        if (booking.getStart().isAfter(booking.getFinish()))
+            throw new Exception("Финиш не может быть раньше старта");
+
+        List<Booking> overlappingBookings = bookingRepository.getOverlappingBookings(booking);
+        if (overlappingBookings.size() > 0)
+            throw new Exception("Пересекаются даты со следующей бронью, id " + overlappingBookings.get(0).getId());
+        else
+            return bookingRepository.save(booking);
+//        return bookingRepository.save(booking);
     }
 
     // Update

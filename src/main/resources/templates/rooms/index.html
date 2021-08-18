@@ -20,7 +20,7 @@
             <thead>
             <tr>
                 <th>Id</th>
-                <th>Имя</th>
+                <th>Название</th>
                 <th>Количество кресел</th>
                 <th>Проектор</th>
                 <th>Доска</th>
@@ -34,8 +34,13 @@
                     <td class="align-middle" th:text="${room.id}"></td>
                     <td class="align-middle" th:text="${room.name}"></td>
                     <td class="align-middle" th:text="${room.numberOfSeats}"></td>
-                    <td class="align-middle" th:text="${room.projector}"></td>
-                    <td class="align-middle" th:text="${room.board}"></td>
+
+                    <td th:if="${room.projector} == true" class="align-middle">+</td>
+                    <td th:unless="${room.projector} == true" class="align-middle">-</td>
+
+                    <td th:if="${room.board} == true" class="align-middle">+</td>
+                    <td th:unless="${room.board} == true" class="align-middle">-</td>
+
                     <td th:unless="${room.getNextBooking() == null}" class="align-middle" th:text="${room.getNextBooking()}"></td>
                     <td th:if="${room.getNextBooking() == null}" class="align-middle">Аудитория свободна</td>
                     <td class="align-middle col-md-1">

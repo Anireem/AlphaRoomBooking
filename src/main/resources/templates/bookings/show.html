@@ -10,7 +10,7 @@
 
     <body>
 
-    <form class="col-lg-5" th:method="POST" th:action="@{/bookings}" th:object="${booking}">
+    <form class="col-lg-5" name="form" th:method="POST" th:object="${booking}">
 
         <label class="form-label" for="id">Id</label>
         <input class="form-control" type="text" th:field="*{id}" id="id" readonly>
@@ -36,7 +36,11 @@
         <input class="form-control" type="datetime-local" placeholder="2021-08-05T22:48" th:field="*{finish}" id="finish" required>
         <br>
 
-        <input class="btn btn-primary" type="submit" value="Сохранить"/>
+        <label class="form-label" for="event">Мероприятие</label>
+        <input class="form-control" type="text" th:field="*{event}" id="event">
+        <br>
+
+        <button class="btn btn-primary" type="button" th:onclick="'saveBooking()'">Сохранить</button>
         <button class="btn btn-outline-secondary" th:if="*{id != null}" type="button" th:onclick="'removeBooking(\'' + ${id} +'\')'">Удалить</button>
 
     </form>

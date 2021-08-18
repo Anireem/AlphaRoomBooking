@@ -3,6 +3,7 @@ package com.example.alpharoombooking.restcontrollers;
 import com.example.alpharoombooking.exceptions.ResourceNotFoundException;
 import com.example.alpharoombooking.models.Room;
 import com.example.alpharoombooking.models.Room;
+import com.example.alpharoombooking.repositories.BookingRepository;
 import com.example.alpharoombooking.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class RoomRestController {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @GetMapping("/rooms")
     public List<Room> getAll() {
@@ -48,7 +52,8 @@ public class RoomRestController {
     public Map<String, Boolean> delete(@PathVariable("id") Long id) throws ResourceNotFoundException {
         Room room = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Комната не найдена, id: " + id));
 
-        roomRepository.delete(room);
+        bookingRepository.deleteAll(room.getBookings());
+        roomRepository.deleteById(id);
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);

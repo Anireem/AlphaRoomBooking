@@ -26,21 +26,24 @@ public class Booking {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime finish;
 
+    private String event;
+
     public Booking() {
     }
 
-    public Booking(Long id, Long roomId, Status status, Room room, LocalDateTime start, LocalDateTime finish) {
+    public Booking(Long id, Long roomId, Status status, Room room, LocalDateTime start, LocalDateTime finish, String event) {
         this.id = id;
         this.status = status;
         this.room = room;
         this.start = start;
         this.finish = finish;
+        this.event = event;
     }
+
 
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -75,6 +78,14 @@ public class Booking {
 
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
     }
 
     @Override

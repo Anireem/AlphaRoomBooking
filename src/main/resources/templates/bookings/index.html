@@ -24,6 +24,7 @@
                 <th>Состояние</th>
                 <th>Старт</th>
                 <th>Финиш</th>
+                <th>Мероприятие</th>
                 <th></th>
             </tr>
             </thead>
@@ -34,7 +35,8 @@
                     <td class="align-middle" th:text="${booking.room.name}"></td>
                     <td class="align-middle" th:text="${booking.status}"></td>
                     <td class="align-middle" th:text="${booking.start}"></td>
-                    <td class="align-middle col-md-2" th:text="${booking.finish}"></td>
+                    <td class="align-middle" th:text="${booking.finish}"></td>
+                    <td class="align-middle" th:text="${booking.event}"></td>
                     <td class="align-middle col-md-1">
                         <a class="btn btn-link btn-sm" role="button" th:href="@{/bookings/{id}(id=${booking.id})}"
                            th:text="Редактировать"></a>

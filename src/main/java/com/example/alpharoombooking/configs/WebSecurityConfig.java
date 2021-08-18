@@ -1,13 +1,16 @@
 package com.example.alpharoombooking.configs;
 
 import com.example.alpharoombooking.components.LoginSuccessHandler;
+import com.example.alpharoombooking.exceptions.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.sql.DataSource;
 
@@ -27,7 +30,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/registration").permitAll()
+                .antMatchers("/users").hasAnyAuthority("ADMIN", "EMPLOYEE")
                 .anyRequest().authenticated()
+
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
 
                 .and()
                 .formLogin()
@@ -47,5 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .usersByUsernameQuery("select username, password, active from usrs where username=?")
                 .authoritiesByUsernameQuery("select u.username, ur.roles from usrs u inner join user_role ur on u.id = ur.user_id where u.username=?");
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }

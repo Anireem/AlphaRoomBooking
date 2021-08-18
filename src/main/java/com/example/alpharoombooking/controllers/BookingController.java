@@ -1,6 +1,7 @@
 package com.example.alpharoombooking.controllers;
 
 import com.example.alpharoombooking.models.Booking;
+import com.example.alpharoombooking.models.Room;
 import com.example.alpharoombooking.repositories.BookingRepository;
 import com.example.alpharoombooking.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,30 +38,14 @@ public class BookingController {
 
     // Открываем форму создания нового
     @GetMapping ("new")
-    public String addNew(@ModelAttribute("booking") Booking booking, Model model) {
+    public String addNew(@ModelAttribute("booking") Booking booking, @ModelAttribute("roomId") String roomId, Model model) {
+        if (!roomId.equals("")) {
+            Room room = roomRepository.findById(Long.parseLong(roomId)).get();
+            booking.setRoom(room);
+        }
+
         model.addAttribute("rooms", roomRepository.findAll());
         return "bookings/show";
     }
 
-    // Сохранение
-    @PostMapping()
-    public String create(@ModelAttribute("booking") Booking booking) throws Exception {
-        if (booking.getStart().isAfter(booking.getFinish()))
-            throw new Exception("Финиш не может быть раньше старта");
-
-        List<Booking> overlappingBookings = bookingRepository.getOverlappingBookings(booking);
-        if (overlappingBookings.size() > 0)
-            throw new Exception("Пересекаются даты со следующей бронью, id " + overlappingBookings.get(0).getId());
-        else
-            bookingRepository.save(booking);
-
-        return "redirect:/bookings";
-    }
-
-    // Удаление
-    @PostMapping("{id}/delete")
-    public String delete(@PathVariable("id") Long id) {
-        bookingRepository.deleteById(id);
-        return "redirect:/bookings";
-    }
 }

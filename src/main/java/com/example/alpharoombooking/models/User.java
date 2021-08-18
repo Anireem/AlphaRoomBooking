@@ -1,5 +1,8 @@
 package com.example.alpharoombooking.models;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import javax.persistence.*;
 import java.util.Set;
 

@@ -2,9 +2,12 @@ package com.example.alpharoombooking.restcontrollers;
 
 import com.example.alpharoombooking.exceptions.ResourceNotFoundException;
 import com.example.alpharoombooking.models.User;
+import com.example.alpharoombooking.repositories.RoomRepository;
 import com.example.alpharoombooking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -13,6 +16,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
+@Service
+@PreAuthorize("hasRole('ADMIN')")
 public class UserRestController {
 
     @Autowired

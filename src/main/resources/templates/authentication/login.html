@@ -9,25 +9,25 @@
 
     <body>
 
-    <h2>Login</h2>
+    <h2>Вход</h2>
 
     <div th:if="${param.error}">
-        Invalid username and password.
+        Неверное имя пользователя и пароль.
     </div>
     <div th:if="${param.logout}">
-        You have been logged out.
+        Вы вышли.
     </div>
     <form th:action="@{/login}" method="post">
-        <div><label> User Name : <input class="form-control" type="text" name="username"/> </label></div>
-        <div><label> Password: <input class="form-control" type="password" name="password"/> </label></div>
+        <div><label> Имя пользователя: <input class="form-control" type="text" name="username"/> </label></div>
+        <div><label> Пароль: <input class="form-control" type="password" name="password"/> </label></div>
         <br>
 
         <div class="form-group row">
             <div class="col-sm-1">
-                <div><input class="btn btn-primary" type="submit" value="Sign In"/></div>
+                <div><input class="btn btn-primary" type="submit" value="Войти"/></div>
             </div>
             <div class="col-sm-1">
-                <a class="btn btn-outline-secondary" href="/registration" role="button">Registration</a>
+                <a class="btn btn-outline-secondary" href="/registration" role="button">Регистрация</a>
             </div>
         </div>
     </form>
