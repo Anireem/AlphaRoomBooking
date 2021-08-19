@@ -12,7 +12,7 @@
 
     <br>
 
-    <div class="col-sm-1"><a class="btn btn-primary btn-sm" href="/rooms/new" role="button">Создать</a></div>
+    <div th:unless="${#authorization.expression('hasAuthority(''OFFICE_MANAGER'')')}" class="col-sm-1"><a class="btn btn-primary btn-sm" href="/rooms/new" role="button">Создать</a></div>
 
     <br>
     <div class="table-responsive">
@@ -25,7 +25,7 @@
                 <th>Проектор</th>
                 <th>Доска</th>
                 <th th:if="${#authorization.expression('hasAuthority(''EMPLOYEE'')')}">Раннее забронированное время</th>
-                <th></th>
+                <th th:unless="${#authorization.expression('hasAuthority(''OFFICE_MANAGER'')')}"></th>
             </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                         <td th:if="${room.getNextBooking() == null}" class="align-middle">Аудитория свободна</td>
                     </div>
 
-                    <td class="align-middle col-md-1">
+                    <td th:unless="${#authorization.expression('hasAuthority(''OFFICE_MANAGER'')')}" class="align-middle col-md-1">
                         <a class="btn btn-link btn-sm" role="button" th:href="@{/rooms/{id}(id=${room.getId()})}" th:text="Редактировать"></a>
                     </td>
                 </tr>

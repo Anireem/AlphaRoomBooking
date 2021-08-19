@@ -139,7 +139,6 @@ async function tableCreate() {
         button.value = 'Подтвердить';
         button.addEventListener('click', function () {
             agreeBooking(requestResult[i].id)
-            alert('add');
         }, false);
 
         var button1 = document.createElement('input')
@@ -147,7 +146,6 @@ async function tableCreate() {
         button1.value = 'Отклонить';
         button1.addEventListener('click', function () {
             rejectBooking(requestResult[i].id)
-            alert('add');
         }, false);
 
         var tr = bookingsTable.insertRow()
