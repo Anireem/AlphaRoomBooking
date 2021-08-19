@@ -1,5 +1,13 @@
 api = 'http://' + window.location.host + '/api/v1'
 
+tableCreate()
+const interval = setInterval(function() {
+    if (true) {
+        tableCreate()
+    }
+}, 10000)
+
+
 async function doRequest(url, method = 'GET', data = null) {
     try {
         const headers = {}
@@ -89,7 +97,71 @@ async function saveBooking() {
     }
     promice = doRequest(api + '/bookings', 'POST', booking)
     let requestResult = await promice
+    if (requestResult.message != undefined) {
+        alert(requestResult.message)
+    }
     window.location.replace(bookingURL)
+}
+
+async function agreeBooking(id) {
+    promice = doRequest(api + '/bookings/' + id, 'GET')
+    let booking = await promice
+    booking.status = "AGREED"
+
+    promice = doRequest(api + '/bookings', 'POST', booking)
+    let requestResult = await promice
+    tableCreate()
+}
+
+async function rejectBooking(id) {
+    promice = doRequest(api + '/bookings/' + id, 'GET')
+    let booking = await promice
+    booking.status = "REJECTED"
+
+    promice = doRequest(api + '/bookings', 'POST', booking)
+    let requestResult = await promice
+    tableCreate()
+}
+
+async function tableCreate() {
+
+    promice = doRequest(api + '/approval-bookings/', 'GET')
+    let requestResult = await promice;
+
+    var bookingsTable = document.getElementById('bookingsTable');
+    while(bookingsTable.hasChildNodes()) {
+        bookingsTable.removeChild(bookingsTable.firstChild);
+    }
+    for (let i = 0; i < requestResult.length; i++) {
+
+        var button = document.createElement('input')
+        button.type = 'button';
+        button.value = 'Подтвердить';
+        button.addEventListener('click', function () {
+            agreeBooking(requestResult[i].id)
+            alert('add');
+        }, false);
+
+        var button1 = document.createElement('input')
+        button1.type = 'button';
+        button1.value = 'Отклонить';
+        button1.addEventListener('click', function () {
+            rejectBooking(requestResult[i].id)
+            alert('add');
+        }, false);
+
+        var tr = bookingsTable.insertRow()
+        var td = tr.insertCell();
+        textNode = "id: " + requestResult[i].id + ", комната: " + requestResult[i].room.name
+            + ", событие: " + requestResult[i].event
+            + ", старт: " + requestResult[i].start
+            + ", финиш: " + requestResult[i].finish
+            td.appendChild(document.createTextNode(textNode));
+        var td = tr.insertCell();
+        td.appendChild(button);
+        var td = tr.insertCell();
+        td.appendChild(button1);
+    }
 }
 
 // Rooms

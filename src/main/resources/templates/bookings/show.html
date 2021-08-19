@@ -22,9 +22,11 @@
         </select><br>
 
         <label class="form-label" for="status">Состояние</label>
-        <select class="form-select" th:field="*{status}" id="status">
-            <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}"
-            th:value="${status.name()}" th:text="${status}"></option>
+        <select th:unless="${#authorization.expression('hasAuthority(''EMPLOYEE'')')}" class="form-select" th:field="*{status}" id="status">
+            <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}" th:value="${status.name()}" th:text="${status}"></option>
+        </select>
+        <select th:if="${#authorization.expression('hasAuthority(''EMPLOYEE'')')}" class="form-select" th:field="*{status}" id="status" disabled="true">
+            <option th:each="status : ${T(com.example.alpharoombooking.models.Status).values()}" th:value="${status.name()}" th:text="${status}"></option>
         </select>
         <br>
 
@@ -37,7 +39,7 @@
         <br>
 
         <label class="form-label" for="event">Мероприятие</label>
-        <input class="form-control" type="text" th:field="*{event}" id="event">
+        <input class="form-control" type="text" th:field="*{event}" id="event" required>
         <br>
 
         <button class="btn btn-primary" type="button" th:onclick="'saveBooking()'">Сохранить</button>

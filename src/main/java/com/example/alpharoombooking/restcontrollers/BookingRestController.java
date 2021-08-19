@@ -29,6 +29,12 @@ public class BookingRestController {
         return bookingRepository.findAll();
     }
 
+    // Get all
+    @GetMapping("approval-bookings")
+    public List<Booking> getApprovalBookings() {
+        return bookingRepository.getApprovalBookings();
+    }
+
     // Get by id
     @GetMapping("bookings/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable("id") Long id) throws ResourceNotFoundException {
@@ -39,21 +45,17 @@ public class BookingRestController {
     // Save
     @PostMapping("bookings")
     public Booking saveBooking(@RequestBody Booking booking) throws Exception {
-//        Long roomId = booking.getRoom().getId();
-//        Room room  = roomRepository.findById(roomId).get();
-//        booking.setRoom(room);
         Long roomId = booking.getRoom().getId();
         Room room  = roomRepository.findById(roomId).get();
         booking.setRoom(room);
         if (booking.getStart().isAfter(booking.getFinish()))
-            throw new Exception("Финиш не может быть раньше старта");
+            throw new Exception("Финиш не может быть раньше старта, документ не сохранен");
 
         List<Booking> overlappingBookings = bookingRepository.getOverlappingBookings(booking);
         if (overlappingBookings.size() > 0)
-            throw new Exception("Пересекаются даты со следующей бронью, id " + overlappingBookings.get(0).getId());
+            throw new Exception("Пересекаются даты со следующей бронью, документ не сохранен, id: " + overlappingBookings.get(0).getId());
         else
             return bookingRepository.save(booking);
-//        return bookingRepository.save(booking);
     }
 
     // Update

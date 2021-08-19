@@ -1,5 +1,6 @@
 package com.example.alpharoombooking.controllers;
 
+import com.example.alpharoombooking.models.Role;
 import com.example.alpharoombooking.models.User;
 import com.example.alpharoombooking.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/users")
@@ -35,6 +39,8 @@ public class UserController {
     // Открываем форму создания нового
     @GetMapping ("new")
     public String addNew(@ModelAttribute("user") User user) {
+        user.setActive(true);
+        user.setRoles(Collections.singleton(Role.EMPLOYEE));
         return "users/show";
     }
     

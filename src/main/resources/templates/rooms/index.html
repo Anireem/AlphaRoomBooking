@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<html class="h-100" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head th:insert="blocks/head :: head"></head>
 <header th:insert="blocks/header :: header"></header>
@@ -24,7 +24,7 @@
                 <th>Количество кресел</th>
                 <th>Проектор</th>
                 <th>Доска</th>
-                <th>Самое ранее забронированное время</th>
+                <th th:if="${#authorization.expression('hasAuthority(''EMPLOYEE'')')}">Раннее забронированное время</th>
                 <th></th>
             </tr>
             </thead>
@@ -41,17 +41,47 @@
                     <td th:if="${room.board} == true" class="align-middle">+</td>
                     <td th:unless="${room.board} == true" class="align-middle">-</td>
 
-                    <td th:unless="${room.getNextBooking() == null}" class="align-middle" th:text="${room.getNextBooking()}"></td>
-                    <td th:if="${room.getNextBooking() == null}" class="align-middle">Аудитория свободна</td>
+                    <div th:if="${#authorization.expression('hasAuthority(''EMPLOYEE'')')}">
+                        <td th:unless="${room.getNextBooking() == null}" class="align-middle" th:text="${room.getNextBooking()}"></td>
+                        <td th:if="${room.getNextBooking() == null}" class="align-middle">Аудитория свободна</td>
+                    </div>
+
                     <td class="align-middle col-md-1">
-                        <a class="btn btn-link btn-sm" role="button" th:href="@{/rooms/{id}(id=${room.getId()})}"
-                           th:text="Редактировать"></a>
+                        <a class="btn btn-link btn-sm" role="button" th:href="@{/rooms/{id}(id=${room.getId()})}" th:text="Редактировать"></a>
                     </td>
                 </tr>
             </div>
             </tbody>
         </table>
     </div>
+
+    <div th:if="${#authorization.expression('hasAuthority(''OFFICE_MANAGER'')')}" class="table-responsive">
+        <b>Заявки на подтверждении:</b>
+        <table class="table table-borderless" id="bookingsTable">
+            <thead>
+            <tr>
+                <th>Заявка</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <div th:each="booking : ${bookings}">
+                <tr>
+                    <td class="align-middle" th:text="${booking}"></td>
+                    <td class="align-middle col-md-1">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" th:onclick="'agreeBooking(\'' + ${booking.id} +'\')'">Подтвердить</button>
+                    </td>
+                    <td class="align-middle col-md-1">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" th:onclick="'rejectBooking(\'' + ${booking.id} +'\')'">Отклонить</button>
+                    </td>
+                </tr>
+            </div>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
 
     </body>
 

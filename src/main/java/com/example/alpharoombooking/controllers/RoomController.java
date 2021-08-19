@@ -1,6 +1,7 @@
 package com.example.alpharoombooking.controllers;
 
 import com.example.alpharoombooking.models.Room;
+import com.example.alpharoombooking.repositories.BookingRepository;
 import com.example.alpharoombooking.repositories.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,14 @@ public class RoomController {
     @Autowired
     private RoomRepository roomRepository;
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
     // Открываем форму списка
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("rooms", roomRepository.findAll());
+        model.addAttribute("bookings", bookingRepository.getApprovalBookings());
         return "rooms/index";
     }
 

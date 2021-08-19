@@ -24,4 +24,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     default List<Booking> getOverlappingBookings(Booking booking) {
         return getOverlappingBookings(booking.getStart(), booking.getFinish(), booking.getRoom(), booking.getId());
     }
+
+    @Query("SELECT booking FROM Booking booking WHERE booking.status = 0")
+    List<Booking> getApprovalBookings();
 }

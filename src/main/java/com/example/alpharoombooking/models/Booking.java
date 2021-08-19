@@ -90,6 +90,6 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Id: " + id + ", " + status + ", старт: " + start + ", финиш: " + finish + "; ";
+        return "Id: " + id + ", состояние: " + status + ", комната: " + room.getName() + ", событие: " + event + ", старт: " + start + ", финиш: " + finish + "; ";
     }
 }

@@ -3,7 +3,7 @@ package com.example.alpharoombooking.models;
 public enum Status {
     APPROVAL("На подтверждении"),
     AGREED("Подтверждено"),
-    REJECTED("Не подтверждено");
+    REJECTED("Отклонено");
 
     private String translation;
 
